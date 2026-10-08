@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="Model1TargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TootajaSet" EntityType="Model1.Tootaja" />
+          <EntitySet Name="ametSet" EntityType="Model1.amet" />
+          <EntitySet Name="ToograafikSet" EntityType="Model1.Toograafik" />
+          <EntitySet Name="klientSet" EntityType="Model1.klient" />
+          <EntitySet Name="broneerimineSet" EntityType="Model1.broneerimine" />
+          <AssociationSet Name="klientbroneerimine" Association="Model1.klientbroneerimine">
+            <End Role="klient" EntitySet="klientSet" />
+            <End Role="broneerimine" EntitySet="broneerimineSet" />
+          </AssociationSet>
+          <AssociationSet Name="ametTootaja" Association="Model1.ametTootaja">
+            <End Role="amet" EntitySet="ametSet" />
+            <End Role="Tootaja" EntitySet="TootajaSet" />
+          </AssociationSet>
+          <AssociationSet Name="TootajaToograafik" Association="Model1.TootajaToograafik">
+            <End Role="Tootaja" EntitySet="TootajaSet" />
+            <End Role="Toograafik" EntitySet="ToograafikSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tootaja">
+          <Key>
+            <PropertyRef Name="TootajaId" />
+          </Key>
+          <Property Name="TootajaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimi" Type="String" Nullable="false" />
+          <Property Name="isikukood" Type="String" Nullable="false" />
+          <Property Name="telefon" Type="String" Nullable="false" />
+          <NavigationProperty Name="amet" Relationship="Model1.ametTootaja" FromRole="Tootaja" ToRole="amet" />
+          <NavigationProperty Name="Toograafik" Relationship="Model1.TootajaToograafik" FromRole="Tootaja" ToRole="Toograafik" />
+        </EntityType>
+        <EntityType Name="amet">
+          <Key>
+            <PropertyRef Name="ametId" />
+          </Key>
+          <Property Name="ametId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ametiNimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootaja" Relationship="Model1.ametTootaja" FromRole="amet" ToRole="Tootaja" />
+        </EntityType>
+        <EntityType Name="Toograafik">
+          <Key>
+            <PropertyRef Name="ToograafikId" />
+          </Key>
+          <Property Name="ToograafikId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuupaev" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootaja" Relationship="Model1.TootajaToograafik" FromRole="Toograafik" ToRole="Tootaja" />
+        </EntityType>
+        <EntityType Name="klient">
+          <Key>
+            <PropertyRef Name="klientId" />
+          </Key>
+          <Property Name="klientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="klientNimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="broneerimine" Relationship="Model1.klientbroneerimine" FromRole="klient" ToRole="broneerimine" />
+        </EntityType>
+        <EntityType Name="broneerimine">
+          <Key>
+            <PropertyRef Name="broneerimineId" />
+          </Key>
+          <Property Name="broneerimineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuupaev" Type="String" Nullable="false" />
+          <Property Name="inimeste_arv" Type="String" Nullable="false" />
+          <Property Name="kellaeg" Type="String" Nullable="false" />
+          <NavigationProperty Name="klient" Relationship="Model1.klientbroneerimine" FromRole="broneerimine" ToRole="klient" />
+        </EntityType>
+        <Association Name="klientbroneerimine">
+          <End Type="Model1.klient" Role="klient" Multiplicity="1" />
+          <End Type="Model1.broneerimine" Role="broneerimine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="klient">
+              <PropertyRef Name="klientId" />
+            </Principal>
+            <Dependent Role="broneerimine">
+              <PropertyRef Name="klient_klientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ametTootaja">
+          <End Type="Model1.amet" Role="amet" Multiplicity="1" />
+          <End Type="Model1.Tootaja" Role="Tootaja" Multiplicity="*" />
+        </Association>
+        <Association Name="TootajaToograafik">
+          <End Type="Model1.Tootaja" Role="Tootaja" Multiplicity="1" />
+          <End Type="Model1.Toograafik" Role="Toograafik" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Model1" />
+        <Alias Key="Target" Value="Model1.Store" />
+        <EntityContainerMapping CdmEntityContainer="Model1Container" StorageEntityContainer="Model1TargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

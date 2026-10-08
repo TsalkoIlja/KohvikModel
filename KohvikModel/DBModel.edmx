@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DBModelStoreContainer">
+    <EntitySet Name="ametSet" EntityType="DBModel.Store.ametSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TootajaSet" EntityType="DBModel.Store.TootajaSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ametTootaja" Association="DBModel.Store.ametTootaja">
+      <End Role="amet" EntitySet="ametSet" />
+      <End Role="Tootaja" EntitySet="TootajaSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ametSet">
+    <Key>
+      <PropertyRef Name="ametId" />
+    </Key>
+    <Property Name="ametId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="amet_Nimetus" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TootajaSet">
+    <Key>
+      <PropertyRef Name="TootajaId" />
+    </Key>
+    <Property Name="TootajaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nimi" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="amet_ametId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ametTootaja">
+    <End Role="amet" Type="DBModel.Store.ametSet" Multiplicity="1" />
+    <End Role="Tootaja" Type="DBModel.Store.TootajaSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="amet">
+        <PropertyRef Name="ametId" />
+      </Principal>
+      <Dependent Role="Tootaja">
+        <PropertyRef Name="amet_ametId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ametSet" EntityType="DBModel.amet" />
+          <EntitySet Name="TootajaSet" EntityType="DBModel.Tootaja" />
+          <AssociationSet Name="ametTootaja" Association="DBModel.ametTootaja">
+            <End Role="amet" EntitySet="ametSet" />
+            <End Role="Tootaja" EntitySet="TootajaSet" />
+          </AssociationSet>
+          <EntitySet Name="ToograafikSet" EntityType="DBModel.Toograafik" />
+          <AssociationSet Name="TootajaToograafik" Association="DBModel.TootajaToograafik">
+            <End Role="Tootaja" EntitySet="TootajaSet" />
+            <End Role="Toograafik" EntitySet="ToograafikSet" />
+          </AssociationSet>
+          <EntitySet Name="TellimusSet" EntityType="DBModel.Tellimus" />
+          <AssociationSet Name="TootajaTellimus" Association="DBModel.TootajaTellimus">
+            <End Role="Tootaja" EntitySet="TootajaSet" />
+            <End Role="Tellimus" EntitySet="TellimusSet" />
+          </AssociationSet>
+          <EntitySet Name="klientSet" EntityType="DBModel.klient" />
+          <AssociationSet Name="klientTellimus" Association="DBModel.klientTellimus">
+            <End Role="klient" EntitySet="klientSet" />
+            <End Role="Tellimus" EntitySet="TellimusSet" />
+          </AssociationSet>
+          <EntitySet Name="broneerimineSet" EntityType="DBModel.broneerimine" />
+          <AssociationSet Name="klientbroneerimine" Association="DBModel.klientbroneerimine">
+            <End Role="klient" EntitySet="klientSet" />
+            <End Role="broneerimine" EntitySet="broneerimineSet" />
+          </AssociationSet>
+          <EntitySet Name="laudSet" EntityType="DBModel.laud" />
+          <AssociationSet Name="laudbroneerimine" Association="DBModel.laudbroneerimine">
+            <End Role="laud" EntitySet="laudSet" />
+            <End Role="broneerimine" EntitySet="broneerimineSet" />
+          </AssociationSet>
+          <EntitySet Name="TellimusToodeSet" EntityType="DBModel.TellimusToode" />
+          <AssociationSet Name="TellimusTellimusToode" Association="DBModel.TellimusTellimusToode">
+            <End Role="Tellimus" EntitySet="TellimusSet" />
+            <End Role="TellimusToode" EntitySet="TellimusToodeSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="amet">
+          <Key>
+            <PropertyRef Name="ametId" />
+          </Key>
+          <Property Name="ametId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="amet_Nimetus" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootaja" Relationship="DBModel.ametTootaja" FromRole="amet" ToRole="Tootaja" />
+        </EntityType>
+        <EntityType Name="Tootaja">
+          <Key>
+            <PropertyRef Name="TootajaId" />
+          </Key>
+          <Property Name="TootajaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="amet" Relationship="DBModel.ametTootaja" FromRole="Tootaja" ToRole="amet" />
+          <NavigationProperty Name="Toograafik" Relationship="DBModel.TootajaToograafik" FromRole="Tootaja" ToRole="Toograafik" />
+          <NavigationProperty Name="Tellimus" Relationship="DBModel.TootajaTellimus" FromRole="Tootaja" ToRole="Tellimus" />
+        </EntityType>
+        <Association Name="ametTootaja">
+          <End Type="DBModel.amet" Role="amet" Multiplicity="1" />
+          <End Type="DBModel.Tootaja" Role="Tootaja" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Toograafik">
+          <Key>
+            <PropertyRef Name="ToograafikId" />
+          </Key>
+          <Property Name="ToograafikId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuupaev" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootaja" Relationship="DBModel.TootajaToograafik" FromRole="Toograafik" ToRole="Tootaja" />
+        </EntityType>
+        <Association Name="TootajaToograafik">
+          <End Type="DBModel.Tootaja" Role="Tootaja" Multiplicity="1" />
+          <End Type="DBModel.Toograafik" Role="Toograafik" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Tellimus">
+          <Key>
+            <PropertyRef Name="TellimusId" />
+          </Key>
+          <Property Name="TellimusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuupaev" Type="String" Nullable="false" />
+          <Property Name="kellaeg" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tootaja" Relationship="DBModel.TootajaTellimus" FromRole="Tellimus" ToRole="Tootaja" />
+          <NavigationProperty Name="klient" Relationship="DBModel.klientTellimus" FromRole="Tellimus" ToRole="klient" />
+          <NavigationProperty Name="TellimusToode" Relationship="DBModel.TellimusTellimusToode" FromRole="Tellimus" ToRole="TellimusToode" />
+        </EntityType>
+        <Association Name="TootajaTellimus">
+          <End Type="DBModel.Tootaja" Role="Tootaja" Multiplicity="1" />
+          <End Type="DBModel.Tellimus" Role="Tellimus" Multiplicity="*" />
+        </Association>
+        <EntityType Name="klient">
+          <Key>
+            <PropertyRef Name="klientId" />
+          </Key>
+          <Property Name="klientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nimi" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tellimus" Relationship="DBModel.klientTellimus" FromRole="klient" ToRole="Tellimus" />
+          <NavigationProperty Name="broneerimine" Relationship="DBModel.klientbroneerimine" FromRole="klient" ToRole="broneerimine" />
+        </EntityType>
+        <Association Name="klientTellimus">
+          <End Type="DBModel.klient" Role="klient" Multiplicity="1" />
+          <End Type="DBModel.Tellimus" Role="Tellimus" Multiplicity="*" />
+        </Association>
+        <EntityType Name="broneerimine">
+          <Key>
+            <PropertyRef Name="bronnerimineId" />
+          </Key>
+          <Property Name="bronnerimineId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kuupaev" Type="String" Nullable="false" />
+          <Property Name="inimeste_arv" Type="String" Nullable="false" />
+          <Property Name="kellaeg" Type="String" Nullable="false" />
+          <NavigationProperty Name="klient" Relationship="DBModel.klientbroneerimine" FromRole="broneerimine" ToRole="klient" />
+          <NavigationProperty Name="laud" Relationship="DBModel.laudbroneerimine" FromRole="broneerimine" ToRole="laud" />
+        </EntityType>
+        <Association Name="klientbroneerimine">
+          <End Type="DBModel.klient" Role="klient" Multiplicity="1" />
+          <End Type="DBModel.broneerimine" Role="broneerimine" Multiplicity="*" />
+        </Association>
+        <EntityType Name="laud">
+          <Key>
+            <PropertyRef Name="laudId" />
+          </Key>
+          <Property Name="laudId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="laud_number" Type="String" Nullable="false" />
+          <Property Name="kohtade_arv" Type="String" Nullable="false" />
+          <NavigationProperty Name="broneerimine" Relationship="DBModel.laudbroneerimine" FromRole="laud" ToRole="broneerimine" />
+        </EntityType>
+        <Association Name="laudbroneerimine">
+          <End Type="DBModel.laud" Role="laud" Multiplicity="1" />
+          <End Type="DBModel.broneerimine" Role="broneerimine" Multiplicity="*" />
+        </Association>
+        <EntityType Name="TellimusToode">
+          <Key>
+            <PropertyRef Name="TellimusToodeId" />
+          </Key>
+          <Property Name="TellimusToodeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kogus" Type="String" Nullable="false" />
+          <NavigationProperty Name="Tellimus" Relationship="DBModel.TellimusTellimusToode" FromRole="TellimusToode" ToRole="Tellimus" />
+        </EntityType>
+        <Association Name="TellimusTellimusToode">
+          <End Type="DBModel.Tellimus" Role="Tellimus" Multiplicity="1" />
+          <End Type="DBModel.TellimusToode" Role="TellimusToode" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBModelStoreContainer" CdmEntityContainer="DBModelContainer">
+    <EntitySetMapping Name="ametSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.amet)">
+        <MappingFragment StoreEntitySet="ametSet">
+          <ScalarProperty Name="ametId" ColumnName="ametId" />
+          <ScalarProperty Name="amet_Nimetus" ColumnName="amet_Nimetus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TootajaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DBModel.Tootaja)">
+        <MappingFragment StoreEntitySet="TootajaSet">
+          <ScalarProperty Name="TootajaId" ColumnName="TootajaId" />
+          <ScalarProperty Name="nimi" ColumnName="nimi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ametTootaja" TypeName="DBModel.ametTootaja" StoreEntitySet="TootajaSet">
+      <EndProperty Name="amet">
+        <ScalarProperty Name="ametId" ColumnName="amet_ametId" />
+      </EndProperty>
+      <EndProperty Name="Tootaja">
+        <ScalarProperty Name="TootajaId" ColumnName="TootajaId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
