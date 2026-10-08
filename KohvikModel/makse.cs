@@ -12,12 +12,13 @@ namespace KohvikModel
     using System;
     using System.Collections.Generic;
     
-    public partial class TellimusToode
+    public partial class makse
     {
-        public int TellimusToodeId { get; set; }
-        public string kogus { get; set; }
+        public int makseId { get; set; }
+        public string kuupaev { get; set; }
+        public string summa { get; set; }
+        public string makseviis { get; set; }
     
         public virtual Tellimus Tellimus { get; set; }
-        public virtual Toode Toode { get; set; }
     }
 }

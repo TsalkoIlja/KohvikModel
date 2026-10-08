@@ -33,5 +33,12 @@ namespace KohvikModel
         public DbSet<broneerimine> broneerimineSet { get; set; }
         public DbSet<laud> laudSet { get; set; }
         public DbSet<TellimusToode> TellimusToodeSet { get; set; }
+        public DbSet<Toode> ToodeSet { get; set; }
+        public DbSet<kategooria> kategooriaSet { get; set; }
+        public DbSet<makse> makseSet { get; set; }
+        public DbSet<TooteKoostisosa> TooteKoostisosaSet { get; set; }
+        public DbSet<Koostisosa> KoostisosaSet { get; set; }
+        public DbSet<Tarnija> TarnijaSet { get; set; }
+        public DbSet<Tooraine> TooraineSet { get; set; }
     }
 }

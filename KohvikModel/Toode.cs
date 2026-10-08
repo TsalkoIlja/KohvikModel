@@ -12,22 +12,21 @@ namespace KohvikModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Tellimus
+    public partial class Toode
     {
-        public Tellimus()
+        public Toode()
         {
             this.TellimusToode = new HashSet<TellimusToode>();
-            this.makse = new HashSet<makse>();
+            this.TooteKoostisosa = new HashSet<TooteKoostisosa>();
         }
     
-        public int TellimusId { get; set; }
-        public string kuupaev { get; set; }
-        public string kellaeg { get; set; }
+        public int ToodeId { get; set; }
+        public string Nimetus { get; set; }
+        public string kirjeldus { get; set; }
+        public string hind { get; set; }
     
-        public virtual Tootaja Tootaja { get; set; }
-        public virtual klient klient { get; set; }
         public virtual ICollection<TellimusToode> TellimusToode { get; set; }
-        public virtual ICollection<makse> makse { get; set; }
-        public virtual TooteKoostisosa TooteKoostisosa { get; set; }
+        public virtual kategooria kategooria { get; set; }
+        public virtual ICollection<TooteKoostisosa> TooteKoostisosa { get; set; }
     }
 }

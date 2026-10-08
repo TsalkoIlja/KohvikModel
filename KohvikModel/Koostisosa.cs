@@ -12,21 +12,16 @@ namespace KohvikModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Tootaja
+    public partial class Koostisosa
     {
-        public Tootaja()
+        public Koostisosa()
         {
-            this.Toograafik = new HashSet<Toograafik>();
-            this.Tellimus = new HashSet<Tellimus>();
+            this.TooteKoostisosa = new HashSet<TooteKoostisosa>();
         }
     
-        public int TootajaId { get; set; }
+        public int koostisosaId { get; set; }
         public string nimi { get; set; }
-        public string isikukood { get; set; }
-        public string telefon { get; set; }
     
-        public virtual amet amet { get; set; }
-        public virtual ICollection<Toograafik> Toograafik { get; set; }
-        public virtual ICollection<Tellimus> Tellimus { get; set; }
+        public virtual ICollection<TooteKoostisosa> TooteKoostisosa { get; set; }
     }
 }
