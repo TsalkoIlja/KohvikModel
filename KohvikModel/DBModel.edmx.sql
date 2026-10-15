@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/15/2026 11:04:13
--- Generated from EDMX file: C:\Users\opilane\source\repos\TsalkoIlja\KohvikModel\KohvikModel\DBModel.edmx
+-- Date Created: 10/15/2026 17:19:16
+-- Generated from EDMX file: C:\Users\iljat\source\repos\KohvikModel\KohvikModel\DBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [TsalkoKohvik];
+USE [KohvikModel];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
