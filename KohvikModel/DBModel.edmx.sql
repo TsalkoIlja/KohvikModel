@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/15/2026 17:19:16
--- Generated from EDMX file: C:\Users\iljat\source\repos\KohvikModel\KohvikModel\DBModel.edmx
+-- Date Created: 10/20/2026 08:41:46
+-- Generated from EDMX file: C:\Users\opilane\source\repos\TsalkoIlja\KohvikModel\KohvikModel\DBModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,20 +20,26 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ametTootaja]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TootajaSet] DROP CONSTRAINT [FK_ametTootaja];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TootajaToograafik]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ToograafikSet] DROP CONSTRAINT [FK_TootajaToograafik];
-GO
-IF OBJECT_ID(N'[dbo].[FK_TootajaTellimus]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TellimusSet] DROP CONSTRAINT [FK_TootajaTellimus];
-GO
-IF OBJECT_ID(N'[dbo].[FK_klientTellimus]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TellimusSet] DROP CONSTRAINT [FK_klientTellimus];
+IF OBJECT_ID(N'[dbo].[FK_kategooriaToode]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ToodeSet] DROP CONSTRAINT [FK_kategooriaToode];
 GO
 IF OBJECT_ID(N'[dbo].[FK_klientbroneerimine]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[broneerimineSet] DROP CONSTRAINT [FK_klientbroneerimine];
 GO
+IF OBJECT_ID(N'[dbo].[FK_klientTellimus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TellimusSet] DROP CONSTRAINT [FK_klientTellimus];
+GO
+IF OBJECT_ID(N'[dbo].[FK_KoostisosaTooteKoostisosa]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TooteKoostisosaSet] DROP CONSTRAINT [FK_KoostisosaTooteKoostisosa];
+GO
 IF OBJECT_ID(N'[dbo].[FK_laudbroneerimine]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[broneerimineSet] DROP CONSTRAINT [FK_laudbroneerimine];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TarnijaTooraine]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TooraineSet] DROP CONSTRAINT [FK_TarnijaTooraine];
+GO
+IF OBJECT_ID(N'[dbo].[FK_Tellimusmakse]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[makseSet] DROP CONSTRAINT [FK_Tellimusmakse];
 GO
 IF OBJECT_ID(N'[dbo].[FK_TellimusTellimusToode]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TellimusToodeSet] DROP CONSTRAINT [FK_TellimusTellimusToode];
@@ -41,23 +47,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_ToodeTellimusToode]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TellimusToodeSet] DROP CONSTRAINT [FK_ToodeTellimusToode];
 GO
-IF OBJECT_ID(N'[dbo].[FK_kategooriaToode]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ToodeSet] DROP CONSTRAINT [FK_kategooriaToode];
-GO
-IF OBJECT_ID(N'[dbo].[FK_Tellimusmakse]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[makseSet] DROP CONSTRAINT [FK_Tellimusmakse];
-GO
-IF OBJECT_ID(N'[dbo].[FK_TooteKoostisosaTellimus]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TellimusSet] DROP CONSTRAINT [FK_TooteKoostisosaTellimus];
-GO
 IF OBJECT_ID(N'[dbo].[FK_ToodeTooteKoostisosa]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[TooteKoostisosaSet] DROP CONSTRAINT [FK_ToodeTooteKoostisosa];
 GO
-IF OBJECT_ID(N'[dbo].[FK_KoostisosaTooteKoostisosa]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TooteKoostisosaSet] DROP CONSTRAINT [FK_KoostisosaTooteKoostisosa];
+IF OBJECT_ID(N'[dbo].[FK_TootajaTellimus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TellimusSet] DROP CONSTRAINT [FK_TootajaTellimus];
 GO
-IF OBJECT_ID(N'[dbo].[FK_TarnijaTooraine]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[TooraineSet] DROP CONSTRAINT [FK_TarnijaTooraine];
+IF OBJECT_ID(N'[dbo].[FK_TootajaToograafik]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ToograafikSet] DROP CONSTRAINT [FK_TootajaToograafik];
+GO
+IF OBJECT_ID(N'[dbo].[FK_TooteKoostisosaTellimus]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[TellimusSet] DROP CONSTRAINT [FK_TooteKoostisosaTellimus];
 GO
 
 -- --------------------------------------------------
@@ -67,23 +67,29 @@ GO
 IF OBJECT_ID(N'[dbo].[ametSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ametSet];
 GO
-IF OBJECT_ID(N'[dbo].[TootajaSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[TootajaSet];
+IF OBJECT_ID(N'[dbo].[broneerimineSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[broneerimineSet];
 GO
-IF OBJECT_ID(N'[dbo].[ToograafikSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ToograafikSet];
-GO
-IF OBJECT_ID(N'[dbo].[TellimusSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[TellimusSet];
+IF OBJECT_ID(N'[dbo].[kategooriaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[kategooriaSet];
 GO
 IF OBJECT_ID(N'[dbo].[klientSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[klientSet];
 GO
-IF OBJECT_ID(N'[dbo].[broneerimineSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[broneerimineSet];
+IF OBJECT_ID(N'[dbo].[KoostisosaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[KoostisosaSet];
 GO
 IF OBJECT_ID(N'[dbo].[laudSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[laudSet];
+GO
+IF OBJECT_ID(N'[dbo].[makseSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[makseSet];
+GO
+IF OBJECT_ID(N'[dbo].[TarnijaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TarnijaSet];
+GO
+IF OBJECT_ID(N'[dbo].[TellimusSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TellimusSet];
 GO
 IF OBJECT_ID(N'[dbo].[TellimusToodeSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TellimusToodeSet];
@@ -91,23 +97,17 @@ GO
 IF OBJECT_ID(N'[dbo].[ToodeSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ToodeSet];
 GO
-IF OBJECT_ID(N'[dbo].[kategooriaSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[kategooriaSet];
-GO
-IF OBJECT_ID(N'[dbo].[makseSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[makseSet];
-GO
-IF OBJECT_ID(N'[dbo].[TooteKoostisosaSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[TooteKoostisosaSet];
-GO
-IF OBJECT_ID(N'[dbo].[KoostisosaSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[KoostisosaSet];
-GO
-IF OBJECT_ID(N'[dbo].[TarnijaSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[TarnijaSet];
+IF OBJECT_ID(N'[dbo].[ToograafikSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ToograafikSet];
 GO
 IF OBJECT_ID(N'[dbo].[TooraineSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[TooraineSet];
+GO
+IF OBJECT_ID(N'[dbo].[TootajaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TootajaSet];
+GO
+IF OBJECT_ID(N'[dbo].[TooteKoostisosaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[TooteKoostisosaSet];
 GO
 
 -- --------------------------------------------------
